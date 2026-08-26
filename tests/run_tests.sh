@@ -95,5 +95,65 @@ expect_fail "an unknown org member role is rejected" \
    values ('11111111-1111-1111-1111-111111111111','usr_1','wizard');" "check constraint"
 
 echo
+echo "acting identities"
+expect_ok "an agent can be registered" \
+  "insert into core.agents (id, organization_id, slug, name, kind)
+   values ('77777777-7777-7777-7777-777777777777','11111111-1111-1111-1111-111111111111','nightly-sync','Nightly sync','automation');"
+expect_fail "a revoked agent must record when it was revoked" \
+  "update core.agents set status='revoked' where id='77777777-7777-7777-7777-777777777777';" \
+  "agents_revoked_has_timestamp"
+
+expect_ok "a node can be registered" \
+  "insert into core.nodes (id, organization_id, slug, name, kind)
+   values ('88888888-8888-8888-8888-888888888888','11111111-1111-1111-1111-111111111111','dock-box','Dock box','box');"
+expect_fail "an online node must have heartbeated" \
+  "update core.nodes set status='online' where id='88888888-8888-8888-8888-888888888888';" \
+  "nodes_online_has_heartbeat"
+expect_ok "a node that heartbeats can go online" \
+  "update core.nodes set status='online', last_heartbeat_at=now() where id='88888888-8888-8888-8888-888888888888';"
+
+expect_fail "a physical Android device must be attached to a node" \
+  "insert into core.devices (business_id, name, kind)
+   values ('22222222-2222-2222-2222-222222222222','Pixel 4','android-physical');" \
+  "devices_physical_has_node"
+expect_ok "a cloud Android device needs no node" \
+  "insert into core.devices (business_id, name, kind)
+   values ('22222222-2222-2222-2222-222222222222','Cloud Android 1','android-cloud');"
+expect_ok "a physical device attached to a node is fine" \
+  "insert into core.devices (id, business_id, node_id, name, kind)
+   values ('99999999-9999-9999-9999-999999999999','22222222-2222-2222-2222-222222222222','88888888-8888-8888-8888-888888888888','Pixel 4','android-physical');"
+expect_fail "an online device must record when it was last seen" \
+  "update core.devices set status='online' where id='99999999-9999-9999-9999-999999999999';" \
+  "devices_online_has_last_seen"
+expect_ok "a workspace can be backed by a device" \
+  "insert into core.workspaces (business_id, name, kind, device_id)
+   values ('22222222-2222-2222-2222-222222222222','Matt phone','android','99999999-9999-9999-9999-999999999999');"
+
+echo
+echo "actor resolution"
+expect_ok "a human actor carries a user id" \
+  "insert into core.actors (organization_id, kind, user_id)
+   values ('11111111-1111-1111-1111-111111111111','user','usr_matt');"
+expect_ok "an agent actor carries an agent id" \
+  "insert into core.actors (organization_id, kind, agent_id)
+   values ('11111111-1111-1111-1111-111111111111','agent','77777777-7777-7777-7777-777777777777');"
+expect_ok "a system actor carries neither" \
+  "insert into core.actors (organization_id, kind) values ('11111111-1111-1111-1111-111111111111','system');"
+expect_fail "an actor cannot be both a user and an agent" \
+  "insert into core.actors (organization_id, kind, user_id, agent_id)
+   values ('11111111-1111-1111-1111-111111111111','user','usr_x','77777777-7777-7777-7777-777777777777');" \
+  "actors_shape_matches_kind"
+expect_fail "a user actor without a user id is rejected" \
+  "insert into core.actors (organization_id, kind) values ('11111111-1111-1111-1111-111111111111','user');" \
+  "actors_shape_matches_kind"
+expect_fail "one user resolves to one actor per organization" \
+  "insert into core.actors (organization_id, kind, user_id)
+   values ('11111111-1111-1111-1111-111111111111','user','usr_matt');" "actors_one_per_user"
+expect_fail "one agent resolves to one actor" \
+  "insert into core.actors (organization_id, kind, agent_id)
+   values ('11111111-1111-1111-1111-111111111111','agent','77777777-7777-7777-7777-777777777777');" \
+  "actors_one_per_agent"
+
+echo
 if [ "$FAIL" -gt 0 ]; then echo "FAILED: $PASS passed, $FAIL failed"; exit 1; fi
 echo "OK: $PASS passed"

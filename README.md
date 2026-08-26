@@ -17,12 +17,34 @@ uninstalling a product never touches them.
 ## Tables
 
 **Tenancy** — `organizations`, `org_members`, `businesses`, `workspaces`
+**Acting identities** — `agents`, `nodes`, `node_capabilities`, `devices`, `actors`
 **Catalog projection** — `products`, `product_versions`
 **Installation state** — `installations`, `installation_permissions`,
 `installation_surfaces`, `installation_bindings`, `service_registrations`
 
-Identity lives in `cybercheck-identity`. `org_members` stores only the
-membership edge and an external `user_id`.
+Human identity lives in `cybercheck-identity`. `org_members` and `actors` store
+only the edge and an external `user_id`.
+
+## Resolving a request
+
+Before anything runs, three things resolve:
+
+| Question | Answer |
+|---|---|
+| **tenant** — which workspace? | `organizations` → `businesses` → `workspaces` |
+| **target** — which business or location? | `business_id`, plus a location id owned by `cybercheck-data-schema` |
+| **actor** — human or agent? | `actors` |
+
+`actors` is one row per acting identity, so "who is acting" has a single answer
+rather than three parallel ones. A `user` actor carries an external user id, an
+`agent` actor carries an agent, a `system` actor carries neither, and a check
+constraint makes any other shape impossible.
+
+A **node** is a registered compute environment that advertises capabilities and
+heartbeats. A **device** is an Android, browser or hardware identity that may be
+attached to a node or provisioned in the cloud, and a workspace can be backed by
+one — so persistent Android and browser state stays attached to the user across
+compute cycles.
 
 ## Two decisions worth knowing
 
