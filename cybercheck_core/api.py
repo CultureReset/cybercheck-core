@@ -2,19 +2,38 @@ import frappe
 
 
 @frappe.whitelist()
-def me() -> dict:
-	"""Identity, business and installed modules for the session user."""
-	business = business_for_user(frappe.session.user)
+def me(business: str | None = None) -> dict:
+	"""Identity, businesses and installed modules for the session user."""
+	owned = businesses_for_user(frappe.session.user)
+	selected = select_business(business, owned)
 	return {
 		"user": frappe.session.user,
-		"business": business_summary(business),
-		"installed_apps": installed_apps(business),
+		"business": business_summary(selected),
+		"businesses": [business_summary(name) for name in owned],
+		"installed_apps": installed_apps(selected),
 	}
 
 
-def business_for_user(user: str) -> str | None:
-	"""Name of the active business this user owns."""
-	return frappe.db.get_value("Business", {"owner_user": user, "status": "Active"})
+def businesses_for_user(user: str) -> list[str]:
+	"""Active businesses this user owns, oldest first."""
+	return frappe.get_all(
+		"Business",
+		filters={"owner_user": user, "status": "Active"},
+		pluck="name",
+		order_by="creation asc",
+	)
+
+
+def select_business(requested: str | None, owned: list[str]) -> str | None:
+	"""The business to report on. A requested one must be owned by the user."""
+	if not requested:
+		return owned[0] if owned else None
+
+	if requested not in owned:
+		frappe.throw(
+			f"You do not have access to business {requested!r}.", frappe.PermissionError
+		)
+	return requested
 
 
 def business_summary(business: str | None) -> dict | None:
@@ -35,7 +54,7 @@ def installed_apps(business: str | None) -> list[dict]:
 		return []
 
 	return frappe.get_all(
-		"CyberCheck Installed App",
+		"Module Installation",
 		filters={"business": business, "status": "Active"},
 		fields=["app_id as id", "app_version as version", "runtime", "status"],
 		order_by="app_id",

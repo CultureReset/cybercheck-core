@@ -11,7 +11,13 @@
   "business_name",
   "slug",
   "status",
-  "owner_user"
+  "owner_user",
+  "legal_name",
+  "description",
+  "primary_category",
+  "website",
+  "phone",
+  "email"
  ],
  "fields": [
   {
@@ -44,12 +50,44 @@
    "fieldtype": "Link",
    "label": "Owner",
    "options": "User"
+  },
+  {
+   "fieldname": "legal_name",
+   "fieldtype": "Data",
+   "label": "Legal Name"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "primary_category",
+   "fieldtype": "Link",
+   "label": "Primary Category",
+   "options": "Category"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-26 13:04:30.231994",
+ "modified": "2026-08-26 13:11:20.239212",
  "modified_by": "Administrator",
  "module": "CyberCheck Core",
  "name": "Business",

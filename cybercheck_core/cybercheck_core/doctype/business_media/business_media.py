@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class Business(Document):
+class BusinessMedia(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,16 +14,13 @@ class Business(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		business_name: DF.Data
-		description: DF.SmallText | None
-		email: DF.Data | None
-		legal_name: DF.Data | None
-		owner_user: DF.Link | None
-		phone: DF.Data | None
-		primary_category: DF.Link | None
-		slug: DF.Data | None
-		status: DF.Literal["Active", "Suspended"]
-		website: DF.Data | None
+		business: DF.Link
+		caption: DF.Data | None
+		file_url: DF.Data | None
+		media_type: DF.Literal["Image", "Video", "Document", "Audio"]
+		reference_doctype: DF.Link | None
+		reference_name: DF.DynamicLink | None
+		sort_order: DF.Int
 	# end: auto-generated types
 
-	_DOCTYPE_NAME = "Business"
+	_DOCTYPE_NAME = "Business Media"

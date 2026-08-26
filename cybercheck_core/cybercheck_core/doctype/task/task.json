@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-08-26 13:11:07.652660",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "business",
+  "task_type",
+  "requested_by",
+  "module_installation",
+  "payload_reference",
+  "scheduled_for",
+  "priority",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "business",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Business",
+   "options": "Business",
+   "reqd": 1
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User"
+  },
+  {
+   "fieldname": "module_installation",
+   "fieldtype": "Link",
+   "label": "Module Installation",
+   "options": "Module Installation"
+  },
+  {
+   "fieldname": "payload_reference",
+   "fieldtype": "Data",
+   "label": "Payload Reference"
+  },
+  {
+   "fieldname": "scheduled_for",
+   "fieldtype": "Datetime",
+   "label": "Scheduled For"
+  },
+  {
+   "default": "Normal",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Low\nNormal\nHigh"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Pending\nAwaiting Approval\nApproved\nRunning\nSucceeded\nFailed\nCancelled",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-26 13:11:07.652660",
+ "modified_by": "Administrator",
+ "module": "CyberCheck Core",
+ "name": "Task",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "task_type",
+ "track_changes": 1
+}

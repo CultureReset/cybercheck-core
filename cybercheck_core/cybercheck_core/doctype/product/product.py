@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class Business(Document):
+class Product(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,16 +14,12 @@ class Business(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		business_name: DF.Data
+		business: DF.Link
+		category: DF.Link | None
 		description: DF.SmallText | None
-		email: DF.Data | None
-		legal_name: DF.Data | None
-		owner_user: DF.Link | None
-		phone: DF.Data | None
-		primary_category: DF.Link | None
-		slug: DF.Data | None
-		status: DF.Literal["Active", "Suspended"]
-		website: DF.Data | None
+		product_name: DF.Data
+		sku: DF.Data | None
+		status: DF.Literal["Active", "Inactive"]
 	# end: auto-generated types
 
-	_DOCTYPE_NAME = "Business"
+	_DOCTYPE_NAME = "Product"
