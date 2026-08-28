@@ -1,0 +1,22 @@
+app_id: com.cybercheck.example.facebook
+name: Facebook Business
+developer: CyberCheck
+version: 2.4.0
+minimum_runtime_version: 1.0.0
+required_datasets: [business.public_profile]
+optional_datasets: [media.approved, social.content]
+capabilities: [facebook.post.create, facebook.comment.reply, facebook.media.upload, facebook.notifications.read]
+permissions: [business.public.read, media.approved.read, social.publish]
+executors:
+  - {kind: api, priority: 1}
+  - {kind: browser, priority: 2, app_map: facebook-web-v18}
+  - {kind: android, priority: 3, app_map: facebook-android-v21}
+surfaces:
+  - {kind: dashboard, path: /apps/facebook, title: Facebook Business, requires_permission: facebook.read}
+  - {kind: settings, path: /apps/facebook/settings, title: Facebook Settings, requires_permission: facebook.manage}
+verification:
+  facebook.post.create: [post_exists, body_matches, media_matches_if_present, permalink_captured]
+secrets_required: [facebook_connection]
+events:
+  consumes: [social.post.requested]
+  produces: [social.post.published, social.post.failed]

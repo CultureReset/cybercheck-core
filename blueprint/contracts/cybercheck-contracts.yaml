@@ -1,0 +1,29 @@
+version: 1
+ids:
+  OrganizationId: uuid
+  BusinessId: uuid
+  ActorId: uuid
+  AgentId: uuid
+  WorkspaceId: uuid
+  NodeId: uuid
+  DeviceId: uuid
+  ProductId: uuid
+  ReleaseId: uuid
+  InstallationId: uuid
+  DatasetId: string
+  CapabilityId: string
+  ExecutionId: uuid
+  ApprovalId: uuid
+  ReceiptId: uuid
+  AppMapId: uuid
+objects:
+  capability:
+    required: [id, input_schema, sensitivity, verification_required]
+  surface:
+    required: [kind, path, title, requires_permission]
+  installation:
+    required: [business_id, product_id, release_id, state]
+  execution:
+    required: [actor_id, business_id, capability_id, state]
+  receipt:
+    required: [execution_id, actor_id, business_id, capability_id, result, verification, previous_hash, event_hash]

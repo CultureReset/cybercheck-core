@@ -1,0 +1,5 @@
+create table executions (execution_id uuid primary key, business_id uuid not null, actor_id uuid not null, capability_id text not null, idempotency_key text unique, state text not null, requested_at timestamptz not null default now());
+create table approvals (approval_id uuid primary key, execution_id uuid references executions(execution_id), state text not null, requested_at timestamptz not null, decided_at timestamptz, decided_by uuid);
+create table execution_observations (observation_id uuid primary key, execution_id uuid references executions(execution_id), executor_kind text not null, observed_at timestamptz not null, evidence_ref text, payload jsonb);
+create table verification_runs (verification_id uuid primary key, execution_id uuid references executions(execution_id), result text not null, checked_at timestamptz not null, details jsonb);
+create table repair_items (repair_id uuid primary key, execution_id uuid references executions(execution_id), procedure_id uuid, failed_step text, evidence_ref text, state text not null);

@@ -1,0 +1,14 @@
+procedure_id: proc.facebook.post.create.web.v18
+capability: facebook.post.create
+version: 18
+executor: browser
+app_map: facebook-web-v18
+preconditions: [authenticated_session, business_account_selected]
+steps:
+  - {target: facebook.create_post.button, action: click}
+  - {target: facebook.post.body, action: type, input: $.body}
+  - {target: facebook.post.submit, action: click}
+verification: [post_exists, body_matches]
+failure_policy:
+  unknown_screen: stop_and_repair
+  duplicate_side_effect_risk: human_review

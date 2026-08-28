@@ -1,0 +1,4 @@
+capabilities:
+  - {id: menu.item.update, input_schema: MenuItemPatch, sensitivity: normal, agent_safe: true, verification_required: true}
+  - {id: facebook.post.create, input_schema: SocialPostCreate, sensitivity: consequential, agent_safe: false, verification_required: true}
+  - {id: communications.segment.send, input_schema: SegmentMessageSend, sensitivity: consequential, agent_safe: false, verification_required: true}

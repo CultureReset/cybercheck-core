@@ -1,0 +1,6 @@
+events:
+  canonical.data.changed: [business_id, dataset_id, resource_id, changed_fields, actor_id, timestamp]
+  installation.changed: [installation_id, business_id, product_id, state, timestamp]
+  execution.requested: [execution_id, actor_id, business_id, capability_id, idempotency_key]
+  execution.verified: [execution_id, verification_id, result, evidence_refs]
+  projection.changed: [projection_id, business_id, version, timestamp]

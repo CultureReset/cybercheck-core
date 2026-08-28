@@ -1,0 +1,5 @@
+create table sources (source_id uuid primary key, source_type text not null, uri text, authority_class text, created_at timestamptz not null default now());
+create table source_snapshots (snapshot_id uuid primary key, source_id uuid references sources(source_id), captured_at timestamptz not null, content_hash text not null, raw_reference text);
+create table assertions (assertion_id uuid primary key, business_id uuid not null, subject_ref text not null, property_key text not null, value_text text, source_id uuid references sources(source_id), snapshot_id uuid references source_snapshots(snapshot_id), observed_at timestamptz, extraction_confidence numeric, status text not null default 'unverified');
+create table conflicts (conflict_id uuid primary key, business_id uuid not null, property_key text not null, state text not null default 'open', created_at timestamptz not null default now());
+create table verification_decisions (decision_id uuid primary key, business_id uuid not null, assertion_id uuid references assertions(assertion_id), actor_id uuid not null, decision text not null, reason text, decided_at timestamptz not null default now());

@@ -1,0 +1,3 @@
+create table receipts (receipt_id uuid primary key, execution_id uuid not null, business_id uuid not null, actor_id uuid not null, capability_id text not null, result text not null, verification_result text, evidence_refs jsonb, previous_hash text, payload_hash text not null, event_hash text not null, created_at timestamptz not null default now());
+create table audit_events (event_id uuid primary key, business_id uuid, actor_type text, actor_id uuid, resource_type text, resource_id text, operation text not null, old_value_hash text, new_value_hash text, source text, result text, previous_event_hash text, event_hash text not null, created_at timestamptz not null default now());
+-- Production policy should make audit/receipt history append-only to application roles.

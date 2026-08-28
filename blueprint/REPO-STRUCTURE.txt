@@ -1,0 +1,57 @@
+CYBERCHECK PERMANENT REPOSITORY / SERVICE BOUNDARIES
+
+PLATFORM CONTRACTS
+  cybercheck-contracts
+
+FOUNDATION
+  cybercheck-identity
+  cybercheck-core
+  cybercheck-data-schema
+  cybercheck-research
+  cybercheck-marketplace
+  cybercheck-orchestrator
+
+ACCESS
+  cybercheck-gateway
+
+READ / DISTRIBUTION
+  cybercheck-streams
+  cybercheck-search
+  cybercheck-pages/public
+  cybercheck-media
+
+SURFACES
+  cybercheck-admin
+  cybercheck-business-dashboard
+  cybercheck-public
+  cybercheck-developer
+
+RUNTIMES
+  cybercheck-browser-runtime
+  cybercheck-device-runtime
+  cybercheck-compute-runtime
+  ghost-runtime (one node/runtime option)
+  cybercheck-builder
+
+PROOF / OPERATIONS
+  cybercheck-ledger
+  cybercheck-analytics
+  cybercheck-observability
+
+INDEPENDENT PRODUCTS
+  booking
+  availability
+  menus / QR menu
+  reviews
+  communications
+  events
+  maps / visual discovery
+  Google Business connector
+  Meta connector
+  song requests
+  loyalty
+  recommendation / Trip Swipe
+  email / booking / transaction parsers
+  future third-party apps
+
+RULE: no repository needs to understand the entire platform.

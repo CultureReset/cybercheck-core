@@ -1,0 +1,9 @@
+subjects: [human, application, agent, workflow, mcp_client, api_token, device]
+examples:
+  facebook_publisher:
+    allow: [business.public_profile.read, social.content.approved.read, social.post.status.write]
+    deny: [customers.read, transactions.read]
+  review_agent:
+    allow: [reviews.read, review.reply.draft]
+    conditional:
+      review.reply.publish: approval_required
