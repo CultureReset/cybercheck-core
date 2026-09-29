@@ -22,6 +22,23 @@ has installed. It owns neither of the two things it sits between:
 Canonical facts are keyed by the same `business_id` core issues, which is why
 uninstalling a product never touches them.
 
+<!-- branches:start -->
+## Branches
+
+*Read from GitHub on 2026-09-29. 3 branches.*
+
+- **Default branch on GitHub:** `cybercheck-main`.
+- **`claude/repo-code-analysis-y4n1k7`** is where this README and the audit fixes live. It contains every commit on `cybercheck-main` and more (this README, the audit fixes and the screenshots).
+- **1 other branch holds commits that `claude/repo-code-analysis-y4n1k7` does not have.** The newest is `claude/review-codebase-zips-hck9hd` (last commit 2026-08-28, 4 commits not in the work branch). Check it before assuming the work branch is the whole story.
+
+| Branch | Last commit | Not in the work branch | Last commit message |
+| --- | --- | --- | --- |
+| `claude/repo-code-analysis-y4n1k7` (work branch) | 2026-09-29 | - | this README and the audit fixes |
+| `claude/review-codebase-zips-hck9hd` | 2026-08-28 | 4 | Inventory: the two original builds, read properly |
+| `cybercheck-main` (default) | 2026-08-26 | 0 | feat(core): Add agent, node, device and actor identities |
+
+<!-- branches:end -->
+
 ## Tables
 
 **Tenancy** — `organizations`, `org_members`, `businesses`, `workspaces`
