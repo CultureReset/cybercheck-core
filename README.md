@@ -1,3 +1,11 @@
+> **Status: an earlier attempt, not part of Ghost.** Migrations and tests only, no
+> service and no screen: "who exists and what each business has installed" for the
+> earlier app-store design (with `cybercheck-marketplace` as the catalog). That role
+> is now `store_installs` and `store_grants` in `gcr-api-clean`. Its tests need
+> Postgres (`createdb core_test`).
+
+---
+
 # cybercheck-core
 
 **Platform records only.** This is Step 2 of the App Store foundation.
