@@ -80,7 +80,7 @@ createdb core_test
 TEST_DB=core_test ./tests/run_tests.sh
 ```
 
-13 cases, each asserting a specific rejection or success. A schema that never
+30 cases, each asserting a specific rejection or success. A schema that never
 rejects anything is not enforcing anything.
 
 ## History
